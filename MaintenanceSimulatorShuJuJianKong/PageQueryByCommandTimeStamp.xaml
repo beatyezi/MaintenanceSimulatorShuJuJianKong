@@ -1,0 +1,22 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MaintenanceSimulatorShuJuJianKong"
+      xmlns:UI="clr-namespace:Panuon.UI;assembly=Panuon.UI" xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="MaintenanceSimulatorShuJuJianKong.PageQueryByCommandTimeStamp"
+      mc:Ignorable="d" 
+      d:DesignHeight="98" d:DesignWidth="503"
+      Title="PageQueryByCommandTimeStamp" Width="503" Height="98">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="命令接收时间" VerticalAlignment="Top"/>
+        <Button x:Name="btn_query_beginQueryByCommandTimeStamp" Content="开始查询" HorizontalAlignment="Left" Height="25" Margin="377,73,0,0" VerticalAlignment="Top" Width="116" Click="Btn_query_beginQueryByCommandTimeStamp_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,39.221,0,0" TextWrapping="Wrap" Text="从" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="232,39.221,0,0" TextWrapping="Wrap" Text="到" VerticalAlignment="Top"/>
+
+        <telerik:RadDateTimePicker x:Name="dateTimePicker_query_commandTimeStampBegin" HorizontalAlignment="Left" Height="30" Margin="27,31.308,0,0" VerticalAlignment="Top" Width="200" DateTimeWatermarkContent="请选择起始日期和时间" SelectionOnFocus="SelectAll" TimeInterval="1:0:0" />
+        <telerik:RadDateTimePicker x:Name="dateTimePicker_query_commandTimeStampEnd" HorizontalAlignment="Left" Height="30" Margin="249,31.308,0,0" VerticalAlignment="Top" Width="200" DateTimeWatermarkContent="请选择结束日期和时间" SelectionOnFocus="SelectAll" TimeInterval="1:0:0"/>
+
+    </Grid>
+</Page>

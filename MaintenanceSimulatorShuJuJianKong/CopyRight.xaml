@@ -1,0 +1,29 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MaintenanceSimulatorShuJuJianKong"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI" x:Class="MaintenanceSimulatorShuJuJianKong.CopyRight"
+        mc:Ignorable="d"
+        Title="版本及版权信息" Height="325" Width="500" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" MouseDown="Window_MouseDown" Icon="Icons/MainIcon.ico">
+    <Grid>
+        <Rectangle HorizontalAlignment="Left" Height="325" Stroke="Black" VerticalAlignment="Top" Width="500">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFF7F7F7" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <TextBlock x:Name="copyRight_tbTitle" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="title" VerticalAlignment="Top" Style="{StaticResource Title}"/>
+        <ScrollViewer HorizontalAlignment="Left" Height="240.79" Margin="10,40.593,0,0" VerticalAlignment="Top" Width="480">
+            <mui:BBCodeBlock x:Name="copyRight_bbcbContent" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <!--<TextBox x:Name="copyRight_tbContent" Height="235.79" TextWrapping="Wrap" Text="TextBox" Width="480" IsReadOnly="True" BorderBrush="{x:Null}" Background="{x:Null}" SelectionBrush="{x:Null}" Foreground="Black" Focusable="False"
+                     />
+            -->
+        </ScrollViewer>
+        <Button x:Name="copyRight_btnOk" Content="好" HorizontalAlignment="Left" Height="25.459" Margin="407.237,289.541,0,0" VerticalAlignment="Top" Width="82.763" Click="copyRight_btnOk_Click"/>
+
+    </Grid>
+</Window>

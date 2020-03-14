@@ -1,0 +1,17 @@
+﻿<Page x:Class="MaintenanceSimulatorShuJuJianKong.PageQueryByTransmittingDeviceAddress"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MaintenanceSimulatorShuJuJianKong"
+      mc:Ignorable="d" 
+      d:DesignHeight="98" d:DesignWidth="503"
+      Title="PageQueryByTransmittingDeviceAddress" Width="503" Height="98">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="发送方地址" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBox_query_transmitting_device_address" HorizontalAlignment="Left" Margin="10,30.24,0,0" VerticalAlignment="Top" Width="200"/>
+        <Button x:Name="btn_query_beginQueryByTransmittingDeviceAddress" Content="开始查询" HorizontalAlignment="Left" Height="25" Margin="377,73,0,0" VerticalAlignment="Top" Width="116" Click="Btn_query_beginQueryByTransmittingDeviceAddress_Click"/>
+
+    </Grid>
+</Page>
