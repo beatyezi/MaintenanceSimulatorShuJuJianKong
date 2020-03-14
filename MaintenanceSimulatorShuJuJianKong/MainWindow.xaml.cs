@@ -369,6 +369,7 @@ namespace MaintenanceSimulatorShuJuJianKong
             if (!currentKeyStatus.isMainSerialPortOpen)
             {
                 OpenPort();
+                int loop = 0;
             }
 
             //定时刷新数据分析信息
@@ -499,6 +500,8 @@ namespace MaintenanceSimulatorShuJuJianKong
                 gSaveReceivedPackageBuffer.Add(command);
             }
         }
+
+        
 
         private SerialPortClass mainSerialPort = new SerialPortClass();//主串口，对外输入输出        
 
