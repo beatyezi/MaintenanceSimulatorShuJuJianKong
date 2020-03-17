@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("江西中船航海仪器有限公司")]
 [assembly: AssemblyProduct("BCL003炮兵测地车维修模拟训练器数据监控软件")]
-[assembly: AssemblyCopyright("江西中船航海仪器有限公司科技研发软件组 Copyright © 2019 - 至今，江西中船航海仪器有限公司")]
+[assembly: AssemblyCopyright("Copyright© 2018-2020 江西中船航海仪器有限公司,All Rights Reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -51,5 +51,5 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]

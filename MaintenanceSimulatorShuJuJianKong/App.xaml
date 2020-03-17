@@ -10,7 +10,10 @@
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Panuon.UI;component/Themes/Control.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+            <!--
+            <FontFamily x:Key="fontawesome">pack://application:,,,/MaintenanceSimulatorShuJuJianKong/Fonts/fontawesome.ttf#fontawesome</FontFamily>
+            -->
+            </ResourceDictionary>
     </Application.Resources>
 
 </Application>

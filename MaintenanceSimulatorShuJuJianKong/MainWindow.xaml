@@ -10,7 +10,8 @@
         xmlns:pu="clr-namespace:Panuon.UI;assembly=Panuon.UI"        
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         mc:Ignorable="d"
-        Title="BCL003炮兵测地车维修模拟训练器数据监控软件" Height="1080" Width="1920" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown" FontFamily="/MaintenanceSimulatorShuJuJianKong;component/Fonts/#Microsoft YaHei" Topmost="True">
+        Title="BCL003炮兵测地车维修模拟训练器数据监控软件" Height="1080" Width="1920" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" MouseDown="Window_MouseDown"  Topmost="True" 
+        FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei">
     <Window.Resources>
 
     </Window.Resources>
@@ -50,7 +51,7 @@
         <TextBlock x:Name="tb_main_currentTime" HorizontalAlignment="Left" Margin="1678.053,1051.667,0,0" TextWrapping="Wrap" Text="现在时间: 2019年05月23日 14:26:18" VerticalAlignment="Top" FontSize="14" Width="231.947"/>
 
         <Controls:DazzleTabControl Margin="10,28.231,10,33.333">
-            <Controls:DazzleTabItem Height="75" Width="80" Header="数据监控" Foreground="Black" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" Margin="0">
+            <Controls:DazzleTabItem Height="75" Width="80" Header="数据监控" Foreground="Black" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" Margin="0">
                 <Controls:DazzleTabItem.MyMoverBrush>
                     <ImageBrush ImageSource="Icons/table_press.png"/>
                 </Controls:DazzleTabItem.MyMoverBrush>
@@ -64,7 +65,7 @@
                     <GroupBox Header="监控状态" HorizontalAlignment="Left" Height="100.833" Margin="10,10,0,0" VerticalAlignment="Top" Width="265.823">
                         <StackPanel HorizontalAlignment="Left" Margin="10,10,-2,0" VerticalAlignment="Top">
                             <StackPanel Margin="0">
-                                <ComboBox x:Name="comboBox_monitor_training_control" HorizontalAlignment="Left" Margin="0,0,-58.823,0" VerticalAlignment="Top" Width="230"/>
+                                <ComboBox x:Name="comboBox_monitor_training_control" HorizontalAlignment="Left" Margin="0,0,-58.823,0" VerticalAlignment="Top" Width="230" FocusVisualStyle="{x:Null}"/>
                             </StackPanel>
                             <StackPanel Margin="0,8,0,0" Orientation="Horizontal">
                                 <Button x:Name="btn_monitor_uploadProcessData_start" Content="开始监控" HorizontalAlignment="Left" Height="26.666" VerticalAlignment="Top" Width="112" Margin="0" Click="Btn_monitor_uploadProcessData_start_Click"/>
@@ -97,7 +98,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvDaoDiaoReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvDaoDiaoReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages1" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -121,7 +122,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvLianDongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvLianDongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages2" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -145,7 +146,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvZhuoMianJianKongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvZhuoMianJianKongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages3" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -169,7 +170,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvXunLianDaiLiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvXunLianDaiLiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages4" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -193,7 +194,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvQuanZhanYiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvQuanZhanYiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages5" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -217,7 +218,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvKongXianQiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvKongXianQiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages6" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -241,7 +242,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvTuoLuoYiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvTuoLuoYiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages7" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -265,7 +266,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvJiGuangCeJuJiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvJiGuangCeJuJiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages8" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -289,7 +290,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvBeiDouYongHuJiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvBeiDouYongHuJiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages9" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -313,7 +314,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvDaYinJiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvDaYinJiReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages10" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -337,7 +338,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvDingWeiDingXiangXiTongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvDingWeiDingXiangXiTongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages11" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -361,7 +362,7 @@
                                 </LinearGradientBrush>
                             </TabItem.Background>
                             <Grid>
-                                <ListView x:Name="lvJiaShiMoNiXiTongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
+                                <ListView x:Name="lvJiaShiMoNiXiTongReceivedPackages" HorizontalAlignment="Left" Height="793.203" VerticalAlignment="Top" Width="1862" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" FontWeight="Bold" SelectionMode="Single">
                                     <ListView.View>
                                         <GridView x:Name="lvgvReceivedPackages12" AllowsColumnReorder="False">
                                             <GridViewColumn Header="来报时间" DisplayMemberBinding="{Binding commandReceivedTimestamp}" Width="150"/>
@@ -381,7 +382,7 @@
 
                 </Grid>
             </Controls:DazzleTabItem>
-            <Controls:DazzleTabItem Height="75" Width="80" Header="数据分析" Foreground="Black" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" Margin="0">
+            <Controls:DazzleTabItem Height="75" Width="80" Header="数据分析" Foreground="Black" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" Margin="0">
                 <Controls:DazzleTabItem.MyMoverBrush>
                     <ImageBrush ImageSource="Icons/table_press.png"/>
                 </Controls:DazzleTabItem.MyMoverBrush>
@@ -524,7 +525,7 @@
                     <Label Content="报文接收率（帧/秒）" HorizontalAlignment="Left" Margin="972.637,648.769,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </Controls:DazzleTabItem>
-            <Controls:DazzleTabItem Height="75" Width="80" Header="数据查询" Foreground="Black" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" Margin="0">
+            <Controls:DazzleTabItem Height="75" Width="80" Header="数据查询" Foreground="Black" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" Margin="0">
                 <Controls:DazzleTabItem.MyMoverBrush>
                     <ImageBrush ImageSource="Icons/table_press.png"/>
                 </Controls:DazzleTabItem.MyMoverBrush>
@@ -536,8 +537,8 @@
                 </Controls:DazzleTabItem.Background>
                 <Grid Background="#FFFBFBFB">
                     <StackPanel x:Name="stack_query_maskForExecution" HorizontalAlignment="Left" Height="954.569" Margin="10,-5.8,0,0" VerticalAlignment="Top" Width="1874" Background="#A3F6F6F6" Panel.ZIndex="2" Visibility="Hidden">
-                        <Label Content="正在执行，请稍候......" Margin="770,396,0,0" HorizontalAlignment="Left" FontSize="20"/>
-                        <ProgressBar Height="18" Margin="0,0,10,0" IsIndeterminate="True"/>
+                        <Label Content="正在执行，请稍候" Margin="839,396,0,0" HorizontalAlignment="Left" FontSize="20"/>
+                        <ProgressBar Height="18" Margin="0" IsIndeterminate="True" Width="450"/>
                     </StackPanel>
 
                     <GroupBox Header="查询条件" HorizontalAlignment="Left" Height="165" Margin="10,10,0,0" VerticalAlignment="Top" Width="525">
@@ -562,7 +563,7 @@
                     </GroupBox>
                     <GroupBox Header="数据库文件" HorizontalAlignment="Left" Height="925.436" Margin="540,10,0,0" VerticalAlignment="Top" Width="247">
                         <Grid HorizontalAlignment="Left" Height="896.769" Margin="10,10,0,0" VerticalAlignment="Top" Width="219">
-                            <ListBox x:Name="lb_query_databaseFileName" HorizontalAlignment="Left" Height="886.769" VerticalAlignment="Top" Width="219"/>
+                            <ListBox x:Name="lb_query_databaseFileName" HorizontalAlignment="Left" Height="886.769" VerticalAlignment="Top" Width="219" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei"/>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="查询结果" HorizontalAlignment="Left" Height="925.436" Margin="792,10,0,0" VerticalAlignment="Top" Width="1092">
@@ -586,7 +587,7 @@
 
                 </Grid>
             </Controls:DazzleTabItem>
-            <Controls:DazzleTabItem Height="75" Width="80" Header="其它" Foreground="Black" FontFamily="/StandardLibrary;component/Fonts/#Microsoft YaHei" Margin="0">
+            <Controls:DazzleTabItem Height="75" Width="80" Header="其它" Foreground="Black" FontFamily="/BCL003炮兵测地车维修模拟训练器数据监控软件;component/Fonts/#Microsoft YaHei" Margin="0">
                 <Controls:DazzleTabItem.MyMoverBrush>
                     <ImageBrush ImageSource="Icons/table_press.png"/>
                 </Controls:DazzleTabItem.MyMoverBrush>

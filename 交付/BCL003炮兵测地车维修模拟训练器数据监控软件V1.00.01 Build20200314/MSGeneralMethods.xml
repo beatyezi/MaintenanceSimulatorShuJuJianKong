@@ -1,0 +1,1495 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MSGeneralMethods</name>
+    </assembly>
+    <members>
+        <member name="M:LattePanda.Firmata.Arduino.#ctor(System.String,System.Int32,System.Boolean,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="serialPortName">String specifying the name of the serial port. eg COM4</param>
+             <param name="baudRate">The baud rate of the communication. Default 57600</param>
+             <param name="autoStart">Determines whether the serial port should be opened automatically.
+                                 use the Open() method to open the connection manually.</param>
+             <param name="_delay">Time delay that may be required to allow some arduino models
+                                 to reboot after opening a serial connection. The delay will only activate
+                                 when autoStart is true.</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.#ctor(System.String)">
+            <summary>
+            Creates an instance of the Arduino object, based on a user-specified serial port.
+            Assumes default values for baud rate (57600) and reboot delay (8 seconds)
+            and automatically opens the specified serial connection.
+            </summary>
+            <param name="serialPortName">String specifying the name of the serial port. eg COM4</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates an instance of the Arduino object, based on user-specified serial port and baud rate.
+            Assumes default value for reboot delay (8 seconds).
+            and automatically opens the specified serial connection.
+            </summary>
+            <param name="serialPortName">String specifying the name of the serial port. eg COM4</param>
+            <param name="baudRate">Baud rate.</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.#ctor">
+            <summary>
+            Creates an instance of the Arduino object using default arguments.
+            Assumes the arduino is connected as the HIGHEST serial port on the machine,
+            default baud rate (57600), and a reboot delay (8 seconds).
+            and automatically opens the specified serial connection.
+            </summary>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.Open">
+            <summary>
+            Opens the serial port connection, should it be required. By default the port is
+            opened when the object is first created.
+            </summary>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.Close">
+            <summary>
+            Closes the serial port.
+            </summary>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.list">
+            <summary>
+            Lists all available serial ports on current system.
+            </summary>
+            <returns>An array of strings containing all available serial ports.</returns>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.pinMode(System.Int32,System.Byte)">
+            <summary>
+            Sets the mode of the specified pin (INPUT or OUTPUT).
+            </summary>
+            <param name="pin">The arduino pin.</param>
+            <param name="mode">Mode Arduino.INPUT Arduino.OUTPUT Arduino.ANALOG Arduino.PWM or Arduino.SERVO .</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.digitalRead(System.Int32)">
+            <summary>
+            Returns the last known state of the digital pin.
+            </summary>
+            <param name="pin">The arduino digital input pin.</param>
+            <returns>Arduino.HIGH or Arduino.LOW</returns>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.analogRead(System.Int32)">
+            <summary>
+            Returns the last known state of the analog pin.
+            </summary>
+            <param name="pin">The arduino analog input pin.</param>
+            <returns>A value representing the analog value between 0 (0V) and 1023 (5V).</returns>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.digitalWrite(System.Int32,System.Byte)">
+            <summary>
+            Write to a digital pin that has been toggled to output mode with pinMode() method.
+            </summary>
+            <param name="pin">The digital pin to write to.</param>
+            <param name="value">Value either Arduino.LOW or Arduino.HIGH.</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.analogWrite(System.Int32,System.Int32)">
+            <summary>
+            Write to an analog pin using Pulse-width modulation (PWM).
+            </summary>
+            <param name="pin">Analog output pin.</param>
+            <param name="value">PWM frequency from 0 (always off) to 255 (always on).</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.servoWrite(System.Int32,System.Int32)">
+            <summary>
+            controlling servo
+            </summary>
+            <param name="pin">Servo output pin.</param>
+            <param name="angle">Servo angle from 0 to 180.</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.wireBegin(System.Int16)">
+            <summary>
+            Init I2C Bus.
+            </summary>
+            <param name="angle">delay is necessary for some devices such as WiiNunchuck</param>
+        </member>
+        <member name="M:LattePanda.Firmata.Arduino.wireRequest(System.Byte,System.Int16,System.Int16[],System.Byte)">
+            <summary>
+            Write to a digital pin that has been toggled to output mode with pinMode() method.
+            </summary>
+            <param name="slaveAddress">I2C slave address,7 bit</param>
+            <param name="slaveRegister">value either I2C slave Register or Arduino.NONE</param>
+            <param name="data">Write data or length of read data.</param>
+            <param name="mode">Value either Arduino.I2C_MODE_WRITE or Arduino.I2C_MODE_READ_ONCE or Arduino.I2C_MODE_READ_ONCE or Arduino.I2C_MODE_STOP_READING</param>
+        </member>
+        <member name="T:MSGeneralMethods.ArduinoClass">
+            <summary>
+            LattePanda系统板上ATmega32u4与Arduino的库函数定义
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.ArduinoClass.BoardGpioConfigurationComplete">
+            <summary>
+            系统板上GPIO初始化完成标识符。=true：系统板GPIO完成初始化；=false：系统板GPIO未完成初始化。
+            </summary>
+        </member>
+        <member name="M:MSGeneralMethods.ArduinoClass.#ctor(MSGeneralMethods.SerialPortClass.SerialPortName,MSGeneralMethods.SerialPortClass.SerialBaudrate)">
+            <summary>
+            指定Arduino芯片与CPU间的串口号、波特率，构造ArduinoClass类
+            </summary>
+            <param name="serialPortName">串口号</param>
+            <param name="serialBaudrate">波特率</param>
+        </member>
+        <member name="M:MSGeneralMethods.ArduinoClass.#ctor">
+            <summary>
+            默认ArduinoClass类的构造函数
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.ArduinoClass.GpioRegs">
+            <summary>
+            Arduino库GPIO管脚定义
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioRegs.GpioRegForInitialize">
+            <summary>
+            初始化GpioRegs枚举变量
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.ArduinoClass.GpioDirection">
+            <summary>
+            Arduino库GPIO输入输出定义
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioDirection.Input">
+            <summary>
+            GPIO方向设置为输入
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioDirection.Output">
+            <summary>
+            GPIO方向设置为输出
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.ArduinoClass.GpioStatus">
+            <summary>
+            Arduino库GPIO高低值定义
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioStatus.Low">
+            <summary>
+            GPIO配置为低电平
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioStatus.High">
+            <summary>
+            GPIO配置为高电平
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.ArduinoClass.GpioErrorList">
+            <summary>
+            配置GPIO时的错误列表
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioErrorList.NoError">
+            <summary>
+            无错误
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioErrorList.WrongDirection">
+            <summary>
+            GPIO方向错误
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.ArduinoClass.GpioErrorList.GpioUninitialized">
+            <summary>
+            GPIO管脚未初始化
+            </summary>
+        </member>
+        <member name="M:MSGeneralMethods.ArduinoClass.GpioConfiguration(MSGeneralMethods.ArduinoClass.GpioRegs,MSGeneralMethods.ArduinoClass.GpioDirection)">
+            <summary>
+            GPIO配置函数，用于初始化Arduino库及相应GPIO模块
+            </summary>
+            <param name="gpioReg"></param>
+            <param name="gpioDirection"></param>
+        </member>
+        <member name="M:MSGeneralMethods.ArduinoClass.BoardGpioWrite(MSGeneralMethods.ArduinoClass.GpioRegs,MSGeneralMethods.ArduinoClass.GpioDirection,MSGeneralMethods.ArduinoClass.GpioStatus)">
+            <summary>
+            向系统板上的GPIO管脚写值
+            </summary>
+            <param name="gpioReg">待写值的GPIO管脚</param>
+            <param name="gpioDirection">GPIO方向（输入、输出）</param>
+            <param name="gpioStatus">待写入的GPIO高低值（高电平、低电平）</param>
+            <returns>错误列表</returns>
+        </member>
+        <member name="M:MSGeneralMethods.ArduinoClass.BoardGpioRead(MSGeneralMethods.ArduinoClass.GpioRegs,MSGeneralMethods.ArduinoClass.GpioDirection,MSGeneralMethods.ArduinoClass.GpioStatus@)">
+            <summary>
+            读取系统板上的GPIO管脚值
+            </summary>
+            <param name="gpioReg">待读值的GPIO管脚</param>
+            <param name="gpioDirection">GPIO方向</param>
+            <param name="gpioStatus">引用类型，读取到的的GPIO高低值</param>
+            <returns>错误列表</returns>
+        </member>
+        <member name="M:MSGeneralMethods.ArduinoClass.BoardGpioClose">
+            <summary>
+            关闭系统板上Arduino与CPU间的通信串口
+            </summary>
+            <returns>错误列表</returns>
+        </member>
+        <member name="T:MSGeneralMethods.IniFileOperations">
+            <summary>
+            *.ini配置文件操作类
+            </summary>
+        </member>
+        <member name="M:MSGeneralMethods.IniFileOperations.ReadIniData(System.String,System.String,System.String,System.String)">
+            <summary>
+            读取*.ini文件中某一节中关键字的值
+            </summary>
+            <param name="section">*.ini文件中的节</param>
+            <param name="key">*.ini文件的某一节中的关键字</param>
+            <param name="defaultText">当在*.ini配置文件中没有找到具体的值时，就用defaultText的值来代替。defaultText 可以为null或"" </param>
+            <param name="iniFilePath">*ini文件全路径</param>
+            <returns>该关键字对应的值</returns>
+        </member>
+        <member name="M:MSGeneralMethods.IniFileOperations.WriteIniData(System.String,System.String,System.String,System.String)">
+            <summary>
+            向*.ini文件中某一节中关键字写入值
+            </summary>
+            <param name="section">*.ini文件中的节</param>
+            <param name="key">*.ini文件的某一节中的关键字</param>
+            <param name="value">写入该关键字的值</param>
+            <param name="iniFilePath">*ini文件全路径</param>
+            <returns>=true，写入成功；false，写入失败</returns>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass">
+            <summary>
+            通用方法类
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SynchronizeCode55">
+            <summary>
+            帧头同步码0x55
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SynchronizeCodeAA">
+            <summary>
+            帧头同步码0xAA
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.FieldSeparator">
+            <summary>
+            数据字段分隔符‘，’
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CheckCodeSeparator">
+            <summary>
+            校验码前位分隔符‘*’
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TerminationCode0D">
+            <summary>
+            报文结束符0x0D
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TerminationCode0A">
+            <summary>
+            报文结束符0x0A
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.FloatUnion">
+            <summary>
+            共用体FloatUnion定义,等同C中的共用体，定义了单精度浮点型数据的字节数据，小端模式
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.DoubleUnion">
+            <summary>
+            共用体DoubleUnion定义,等同C中的共用体，定义了双精度浮点型数据的字节数据，小端模式
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.DeviceAddress">
+            <summary>
+            模拟器系统内的各设备地址定义（byte）
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.CommandCode">
+            <summary>
+            已分配的命令码表（byte）
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.SynchronizeTimeInformation">
+            <summary>
+            同步时间信息
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.SynchronizePositionAndDirection">
+            <summary>
+            同步坐标及方位角
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.DistributeTrainingPlan">
+            <summary>
+            下发训练科目
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.DistributeWartimeInformation">
+            <summary>
+            下发战时信息
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.ControlTrainingProcess">
+            <summary>
+            控制训练过程
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.SoftwareStatusCheck">
+            <summary>
+            软件状态检测
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.DesktopMonitorControl">
+            <summary>
+            桌面监视控制
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.RequestUploadProcessData">
+            <summary>
+            请求上传作业过程数据
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.TrainingPlanAccomplished">
+            <summary>
+            完成训练科目
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.WartimgInformationConfigureAccomplished">
+            <summary>
+            完成战时信息配置
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.ControlTrainingProcessAccomplished">
+            <summary>
+            完成训练过程控制
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.UploadSoftwareStatus">
+            <summary>
+            上传软件状态
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.UploadDesktopDataStream">
+            <summary>
+            上传桌面数据
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.UploadProcessData">
+            <summary>
+            上传作业数据
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.CommandCode.CommandCodeForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.ErrorCode">
+            <summary>
+            错误码
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ErrorCode.NoError">
+            <summary>
+            无故障
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ErrorCode.ErrorDataLengthInconsistent">
+            <summary>
+            数据长度错误
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ErrorCode.ErrorWrongDataType">
+            <summary>
+            数据格式错误
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ErrorCode.ErrorNoSynchCodeMatched">
+            <summary>
+            帧头同步码不符
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ErrorCode.ErrorWrongCheckCode">
+            <summary>
+            校验码不符
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ErrorCode.ErrorBufferNullOrEmpty">
+            <summary>
+            缓冲区未分配或长度为零
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.TrainingPlan">
+            <summary>
+            训练科目（byte）
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlan.LianCeJiaoZhengDian">
+            <summary>
+            连测校正点
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlan.LianCeZhanDouDuiXing">
+            <summary>
+            连测战斗队形
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlan.GuZhangWeiXiuXunLian">
+            <summary>
+            故障维修训练
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlan.WuQiXiTongLianDong">
+            <summary>
+            武器系统联动 
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlan.TrainingPlanForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy">
+            <summary>
+            训练控制策略（byte）
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy.BeginTrainingProcess">
+            <summary>
+            开始训练
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy.PauseTrainingProcess">
+            <summary>
+            暂停训练
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy.ContinueTrainingProcess">
+            <summary>
+            继续训练
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy.TerminateTrainingProcess">
+            <summary>
+            结束训练
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy.TrainingProcessForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport">
+            <summary>
+            软件上报科目（byte）
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport.ReportSoftwareStatusAndVersion">
+            <summary>
+            上报软件状态（正常/故障等）及版本
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport.Reserved">
+            <summary>
+            保留，暂时无用
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport.SoftwareStatusSubjectReportForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory">
+            <summary>
+            桌面监视类别（byte）
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory.ControlDesktop">
+            <summary>
+            控制从设备桌面
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory.BeginMonitoringDesktop">
+            <summary>
+            开始监视从设备桌面
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory.TerminateMonitoringDesktop">
+            <summary>
+            停止监视从设备桌面
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory.DesktopMonitorControlCategoryForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag">
+            <summary>
+            上传作业过程数据标识符（byte）
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag.BeginUploadProcessData">
+            <summary>
+            开始上传作业过程数据  
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag.TerminateUploadProcessData">
+            <summary>
+            停止上传作业过程数据
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag.TrainingProcessForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag">
+            <summary>
+            训练进程定义(byte)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag.TrainingPlanAllAccomplished">
+            <summary>
+            已完成全部训练科目步骤
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag.TrainingPlanAccomplishedFlagForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.SoftwareStatus">
+            <summary>
+            软件状态定义
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SoftwareStatus.Normal">
+            <summary>
+            正常
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SoftwareStatus.Error">
+            <summary>
+            故障
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.SoftwareStatus.SoftwareStatusForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.ProcessDataCommand">
+            <summary>
+            作业类别码(byte)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToKongXianQi_CaiJiZhuangTai">
+            <summary>
+            操控平台软件向控显器发送采集状态命令(0x10)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToKongXianQi_CaiJiShuJu">
+            <summary>
+            操控平台软件向控显器发送采集数据命令(0x11)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDingWeiDingXiangXiTong_ZhuangDing">
+            <summary>
+            操控平台软件向定位定向系统软件发送初始数据装订命令(0x1E)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDingWeiDingXiangXiTong_ChongXinDuiZhun">
+            <summary>
+            操控平台软件向定位定向系统软件发送重新对准命令(0x21)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDingWeiDingXiangXiTong_LingSuJiaoZheng">
+            <summary>
+            操控平台软件向定位定向系统软件发送零速校正命令(0x22)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDingWeiDingXiangXiTong_JiaoZheng">
+            <summary>
+            操控平台软件向定位定向系统软件发送校正命令(0x23)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDingWeiDingXiangXiTong_LinQu">
+            <summary>
+            操控平台软件向定位定向系统软件发送采集邻区/本区测地数据命令(0x26)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDingWeiDingXiangXiTong_XiTongDingBiao">
+            <summary>
+            操控平台软件向定位定向系统软件发送系统定标命令(0x29)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToQuanZhanYi_CaiJiShuJu">
+            <summary>
+            操控平台软件向全站仪发送采集数据命令(0x37)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToJiGuangCeJuJi_CaiJiXieJuShuJu">
+            <summary>
+            操控平台软件向激光测距机发送采集斜距数据命令(0x3A)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDaYinJi_DaYin">
+            <summary>
+            操控平台软件向打印机发送报文打印命令(0x3D)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromCaoKongPingTaiToDaYinJi_CaiJiDaYinJiZhuangTai">
+            <summary>
+            操控平台软件向打印机发送采集打印机状态命令(0x3E)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromKongXianQiToCaoKongPingTai_GongZuoZhuangTai">
+            <summary>
+            控显器向操控平台软件发送工作状态(0x40)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromKongXianQiToCaoKongPingTai_ZuoYeShuJu">
+            <summary>
+            控显器向操控平台软件发送作业数据(0x41)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromQuanZhanYiToCaoKongPingTai_JiaoDuCeLiangShuJu">
+            <summary>
+            全站仪向操控平台软件发送角度测量数据(0x44)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromJiGuangCeJuJiToCaoKongPingTai_XieJuShuJu">
+            <summary>
+            激光测距机向操控平台软件发送斜距数据(0x47)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromDaYinJiToCaoKongPingTai_GongZuoZhuangTai">
+            <summary>
+            打印机向操控平台软件发送工作状态(0x57)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromDingWeiDingXiangXiTongToCaoKongPingTai_DingWeiShuJu">
+            <summary>
+            定位定向系统向操控平台软件发送定位定向数据(0x59)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromBeiDouToCaoKongPingTai_BeiDouDingWeiShuJu">
+            <summary>
+            北斗向操控平台软件发送通过BD-2获得的定位数据(0xA2)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromBeiDouToCaoKongPingTai_GPSDingWeiShuJu">
+            <summary>
+            北斗向操控平台软件发送通过GPS获得的定位数据(0xA3)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromBeiDouToCaoKongPingTai_BeiDouGPSDingWeiShuJu">
+            <summary>
+            北斗向操控平台软件发送通过BD-2和GPS等其他系统获得的定位数据(0xA4)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromBeiDouToCaoKongPingTai_BeiDouShiJian">
+            <summary>
+            北斗向操控平台软件发送通过BD-2获得的UTC时间、日期和本地时区数据(0xAD)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromBeiDouToCaoKongPingTai_GPSShiJian">
+            <summary>
+            北斗向操控平台软件发送通过GPS获得的UTC时间、日期和本地时区数据(0xAE)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromBeiDouToCaoKongPingTai_BeiDouGPSShiJian">
+            <summary>
+            北斗向操控平台软件发送通过BD-2和GPS等其他系统获得的UTC时间、日期和本地时区数据(0xAF)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.FromTuoLuoYi_FangWeiJiao">
+            <summary>
+            陀螺仪上传北向方位角作业数据(0xC0)
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ProcessDataCommand.ProcessDataCommandForInitialize">
+            <summary>
+            初始化枚举变量时所需值
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.ChongXinDuiZhun">
+            <summary>
+            重新对准方式
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ChongXinDuiZhun.ChongXinDuiZhun1">
+            <summary>
+            重新对准1
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.ChongXinDuiZhun.ChongXinDuiZhun2">
+            <summary>
+            重新对准2
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.JiaoZheng">
+            <summary>
+            校正方式
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.JiaoZheng.JiaoZhengFangShi0">
+            <summary>
+            校正方式0
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.JiaoZheng.JiaoZhengFangShi1">
+            <summary>
+            校正方式1
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.JiaoZheng.JiaoZhengFangShi2">
+            <summary>
+            校正方式2
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.MethodsClass.MoShi">
+            <summary>
+            模式作业方式
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.MoShi.MoShi1">
+            <summary>
+            模式一
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.MoShi.MoShi2">
+            <summary>
+            模式二
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.MoShi.MoShi3">
+            <summary>
+            模式三
+            </summary>
+        </member>
+        <member name="F:MSGeneralMethods.MethodsClass.DeviceCooperatingMessage">
+            <summary>
+            设备间协同交互时所定义的信息内容，作为GetTrainingPlanContent函数的额外补充信息。
+            index0="完成模式三控显器启动"
+            index1="完成模式三陀螺仪启动"
+            index2="完成模式三控显器寻北"
+            </summary>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.CharToHex(System.Byte)">
+            <summary>
+            将字符数据转为十六进制数据，如将字符数据：'a'转为其对应的十六进制数据：0x61
+            </summary>
+            <param name="ch">待转换的字符数据</param>
+            <returns>字符数据对应的十六进制数值</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.StringToHex(System.String,System.Byte[]@)">
+            <summary>
+            将字符串数据转为十六进制数值，如将字符串：“1A”转为十六进制数值0x1A，也即十进制数值26
+            </summary>
+            <param name="strSource">待转换的字符串数据</param>
+            <param name="byteTarget">储存转换后的数据</param>
+            <returns>已转换的数据长度</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.IsNumberic(System.String,System.Int32@)">
+            <summary>
+            正则判断字符串是否仅全数字（不可含正负号）
+            </summary>
+            <param name="value">待判断的字符串数据</param>
+            <param name="result">字符串转换后的结果</param>
+            <returns>true：给定的字符串为全数字，数字转换结果存储与result变量中；false：给定的字符串非全数字</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.IsNumberic(System.String)">
+            <summary>
+            正则判断字符串是否仅全数字（不可含正负号）
+            </summary>
+            <param name="value">待判断的字符串数据</param>
+            <returns>true：给定的字符串为全数字；false：给定的字符串非全数字</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.IsNumbericWithSign(System.String)">
+            <summary>
+            正则判断字符串是否全数字（可含正负号）
+            </summary>
+            <param name="value">待判断的字符串数据</param>
+            <returns>true：给定的字符串为全数字；false：给定的字符串非全数字</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetXorCode(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            获取缓冲区的数据XOR异或校验
+            </summary>
+            <param name="sourceBuffer">缓冲区数据</param>
+            <param name="offset">待进行校验的数据在缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">待进行校验的数组长度</param>
+            <returns>XOR异或校验结果</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetCrcCode(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            获取缓冲区的数据CRC和校验
+            </summary>
+            <param name="sourceBuffer">缓冲区数据</param>
+            <param name="offset">待进行校验的数据在缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">待进行校验的数组长度</param>
+            <returns>CRC和校验结果</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateDeviceAddressToChinese(System.Byte)">
+            <summary>
+            转换字节数据为设备地址对应的中文名称
+            </summary>
+            <param name="deviceAddress">字节数据</param>
+            <returns>设备地址中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateDeviceAddressToChinese(MSGeneralMethods.MethodsClass.DeviceAddress)">
+            <summary>
+            转换DeviceAddress数据为设备地址对应的中文名称
+            </summary>
+            <param name="deviceAddress">DeviceAddress数据</param>
+            <returns>设备地址中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateCommandCodeToChinese(System.Byte)">
+            <summary>
+            转换字节数据为命令码对应的中文名称
+            </summary>
+            <param name="commandCode">字节数据</param>
+            <returns>命令码中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateCommandCodeToChinese(MSGeneralMethods.MethodsClass.CommandCode)">
+            <summary>
+            转换CommandCode数据为命令码对应的中文名称
+            </summary>
+            <param name="commandCode">CommandCode数据</param>
+            <returns>命令码中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateTrainingPlanToChinese(System.Byte)">
+            <summary>
+            转换字节数据为训练科目对应的中文名称 
+            </summary>
+            <param name="trainingPlan">字节数据</param>
+            <returns>训练科目中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateTrainingPlanToChinese(MSGeneralMethods.MethodsClass.TrainingPlan)">
+            <summary>
+            转换TrainingPlan数据为训练科目对应的中文名称 
+            </summary>
+            <param name="trainingPlan">TrainingPlan数据</param>
+            <returns>训练科目中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateTrainingProcessControlStrategyToChinese(MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy)">
+            <summary>
+            转换TrainingProcessControlStrategy数据为训练控制策略对应的中文名称 
+            </summary>
+            <param name="strategy">TrainingProcessControlStrategy数据</param>
+            <returns>训练控制策略中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateSoftwareStatusSubjectReportToChinese(MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport)">
+            <summary>
+            转换SoftwareStatusSubjectReport数据为软件上报科目对应的中文名称 
+            </summary>
+            <param name="softwareStatusSubjectReport">SoftwareStatusSubjectReport数据</param>
+            <returns>软件上报科目中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateDesktopMonitorControlCategoryToChinese(MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory)">
+            <summary>
+            转换DesktopMonitorControlCategory数据为桌面监视类别对应的中文名称 
+            </summary>
+            <param name="desktopMonitorControlCategory">DesktopMonitorControlCategory数据</param>
+            <returns>桌面监视类别中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateRequestUploadProcessDataFlagToChinese(MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag)">
+            <summary>
+            转换RequestUploadProcessDataFlag数据为上传作业过程数据类别对应的中文名称 
+            </summary>
+            <param name="requestUploadProcessDataFlag">RequestUploadProcessDataFlag数据</param>
+            <returns>上传作业过程数据类别中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateSoftwareStatusToChinese(MSGeneralMethods.MethodsClass.SoftwareStatus)">
+            <summary>
+            转换SoftwareStatus数据为软件状态对应的中文名称 
+            </summary>
+            <param name="softwareStatus">SoftwareStatus数据</param>
+            <returns>软件状态类别中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.TranslateProcessDataCommandToChinese(MSGeneralMethods.MethodsClass.ProcessDataCommand)">
+            <summary>
+            转换ProcessDataCommand数据为作业类别码对应的中文名称 
+            </summary>
+            <param name="processDataCommand">ProcessDataCommand数据</param>
+            <returns>作业类别码中文名称</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingSynchronizeTimeInformation(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[]@,System.Int32@)">
+            <summary>
+            同步时间信息命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="year">年，长度：4，位数不足时，前端补零</param>
+            <param name="month">月，长度：2，位数不足时，前端补零</param>
+            <param name="day">日，长度：2，位数不足时，前端补零</param>
+            <param name="hour">时，长度：2，位数不足时，前端补零</param>
+            <param name="minute">分，长度：2，位数不足时，前端补零</param>
+            <param name="second">秒，长度：2，位数不足时，前端补零</param>
+            <param name="targetBuffer">目标缓冲区</param>
+            <param name="targetBufferLength">目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingSynchronizeTimeInformation(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@)">
+            <summary>
+            同步时间信息命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="year">引用类型：年</param>
+            <param name="month">引用类型：月</param>
+            <param name="day">引用类型：日</param>
+            <param name="hour">引用类型：时</param>
+            <param name="minute">引用类型：分</param>
+            <param name="second">引用类型：秒</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingSynchronizePositionAndDirection(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,System.String,System.String,System.String,System.String,System.Byte[]@,System.Int32@)">
+            <summary>
+            同步坐标及方位角命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="x">坐标X  ，最高位为符号位，小数点不发，长度：9</param>
+            <param name="y">坐标Y，高2位为带号，小数点不发，长度：9</param>
+            <param name="h">坐标H，小数点不发，长度：6，位数不足时，前端补零</param>
+            <param name="direction">坐标方位角（单位：密位），小数点不发，长度：7，位数不足时，前端补零</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingSynchronizePositionAndDirection(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,System.String@,System.String@,System.String@,System.String@)">
+            <summary>
+            同步坐标及方位角命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="x">引用类型：坐标X</param>
+            <param name="y">引用类型：坐标Y</param>
+            <param name="h">引用类型：坐标H</param>
+            <param name="direction">引用类型：坐标方位角（单位：密位）</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingDistributeTrainingPlan(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,System.String,System.String,System.String,System.String,System.String,System.String,MSGeneralMethods.MethodsClass.TrainingPlan,System.Byte[]@,System.Int32@)">
+            <summary>
+            下发训练科目命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="year">年，长度：4，位数不足时，前端补零 </param>
+            <param name="month">月，长度：2，位数不足时，前端补零 </param>
+            <param name="day">日，长度：2 ，位数不足时，前端补零</param>
+            <param name="hour">时，长度：2 ，位数不足时，前端补零 </param>
+            <param name="minute">分，长度：2 ，位数不足时，前端补零</param>
+            <param name="second">秒，长度：2 ，位数不足时，前端补零</param>
+            <param name="trainingPlan">训练科目</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingDistributeTrainingPlan(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,MSGeneralMethods.MethodsClass.TrainingPlan@)">
+            <summary>
+            下发训练科目命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="year">引用类型：年</param>
+            <param name="month">引用类型：月</param>
+            <param name="day">引用类型：日</param>
+            <param name="hour">引用类型：时</param>
+            <param name="minute">引用类型：分</param>
+            <param name="second">引用类型：秒</param>
+            <param name="trainingPlan">引用类型：TrainingPlan训练科目枚举变量</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingDistributeWartimeInformation(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.FloatUnion,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Byte[]@,System.Int32@)">
+            <summary>
+            下发战时信息命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="step">作战步长</param>
+            <param name="wartimeYear">作战时间：年，长度：4，位数不足时，前端补零</param>
+            <param name="wartimeMonth">作战时间：月，长度：2 ，位数不足时，前端补零</param>
+            <param name="wartimeDay">作战时间：日，长度：2 ，位数不足时，前端补零</param>
+            <param name="wartimeHour">作战时间：时，长度：2 ，位数不足时，前端补零</param>
+            <param name="wartimeMinute">作战时间：分，长度：2 ，位数不足时，前端补零</param>
+            <param name="wartimeSecond">作战时间：秒，长度：2 ，位数不足时，前端补零</param>
+            <param name="astronomicaltimeYear">天文时间：年，长度：4 ，位数不足时，前端补零</param>
+            <param name="astronomicaltimeMonth">天文时间：月，长度：2 ，位数不足时，前端补零</param>
+            <param name="astronomicaltimeDay">天文时间：日，长度：2 ，位数不足时，前端补零</param>
+            <param name="astronomicaltimeHour">天文时间：时，长度：2 ，位数不足时，前端补零</param>
+            <param name="astronomicaltimeMinute">天文时间：分，长度：2 ，位数不足时，前端补零</param>
+            <param name="astronomicaltimeSecond">天文时间：秒，长度：2 ，位数不足时，前端补零</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingDistributeWartimeInformation(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.FloatUnion@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@)">
+            <summary>
+            下发战时信息命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="step">引用类型：作战时间：年</param>
+            <param name="wartimeYear">引用类型：作战时间：年</param>
+            <param name="wartimeMonth">引用类型：作战时间：月</param>
+            <param name="wartimeDay">引用类型：作战时间：日</param>
+            <param name="wartimeHour">引用类型：作战时间：时</param>
+            <param name="wartimeMinute">引用类型：作战时间：分</param>
+            <param name="wartimeSecond">引用类型：作战时间：秒</param>
+            <param name="astronomicaltimeYear">引用类型：天文时间：年</param>
+            <param name="astronomicaltimeMonth">引用类型：天文时间：月</param>
+            <param name="astronomicaltimeDay">引用类型：天文时间：日</param>
+            <param name="astronomicaltimeHour">引用类型：天文时间：时</param>
+            <param name="astronomicaltimeMinute">引用类型：天文时间：分</param>
+            <param name="astronomicaltimeSecond">引用类型：天文时间：秒</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingControlTrainingProcess(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy,System.Byte[]@,System.Int32@)">
+            <summary>
+            控制训练过程命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="controlStrategy">训练控制策略</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingControlTrainingProcess(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy@)">
+            <summary>
+            控制训练过程命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="controlStrategy">引用类型：训练控制策略</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingSoftwareStatusCheck(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport,System.Byte[]@,System.Int32@)">
+            <summary>
+            软件状态检测命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="softwareStatusSubjectReport">软件上报科目</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingSoftwareStatusCheck(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.SoftwareStatusSubjectReport@)">
+            <summary>
+            软件状态检测命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="softwareStatusSubjectReport">引用类型：软件上报科目</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingDesktopMonitorControl(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory,System.Byte[]@,System.Int32@)">
+            <summary>
+            桌面监视控制命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="desktopMonitorControlCategory">桌面监视类别</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingDesktopMonitorControl(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.DesktopMonitorControlCategory@)">
+            <summary>
+            桌面监视控制命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="desktopMonitorControlCategory">引用类型：桌面监视类别</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingRequestUploadProcessData(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag,System.Byte[]@,System.Int32@)">
+            <summary>
+            请求上传作业过程数据命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="requestUploadProcessDataFlag">上传作业过程数据标识符</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingRequestUploadProcessData(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.RequestUploadProcessDataFlag@)">
+            <summary>
+            请求上传作业过程数据命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="deviceWaitForUploadProcessData">引用类型：待上传作业过程数据的设备号</param>
+            <param name="requestUploadProcessDataFlag">引用类别：上传作业过程数据标识符</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingTrainingPlanAccomplished(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.TrainingPlan,System.Byte,MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag,System.String,System.Byte[]@,System.Int32@)">
+            <summary>
+            完成训练科目命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="compeletedTrainingPlan">已完成的训练科目</param>
+            <param name="trainingPlanTotalSteps">完成该训练科目所需的总步骤数</param>
+            <param name="trainingPlanAccomplishedFlag">训练进程</param>
+            <param name="trainingContent">训练内容</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingTrainingPlanAccomplished(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.TrainingPlan@,System.Byte@,MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag@,System.String@)">
+            <summary>
+            完成训练科目命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="compeletedTrainingPlan">引用类型：已完成的训练科目</param>
+            <param name="trainingPlanTotalSteps">引用类型：完成该训练科目所需的总步骤数</param>
+            <param name="trainingPlanAccomplishedFlag">引用类型：训练进程</param>
+            <param name="trainingContent">引用类型：训练内容</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingWartimgInformationConfigureAccomplished(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,System.Byte[]@,System.Int32@)">
+            <summary>
+            完成战时信息配置命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingWartimgInformationConfigureAccomplished(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@)">
+            <summary>
+            完成战时信息配置命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingControlTrainingProcessAccomplished(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy,System.Byte[]@,System.Int32@)">
+            <summary>
+            完成训练过程控制编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="trainingProcessControlStrategy">已完成的训练控制策略</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingControlTrainingProcessAccomplished(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.TrainingProcessControlStrategy@)">
+            <summary>
+            完成训练过程控制解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="trainingProcessControlStrategy">引用类型：训练控制策略</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingUploadSoftwareStatus(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.SoftwareStatus,System.String,System.String,System.Byte[]@,System.Int32@)">
+            <summary>
+            上传软件状态命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地</param>
+            <param name="commandCode">命令码</param>
+            <param name="softwareStatus">软件状态</param>
+            <param name="softwareStatusIllustration">软件状态说明</param>
+            <param name="softwareVersion">软件版本号，格式：“版本号/此版本软件生成时间”，如“V1.00.00/2019年3月21日”</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingUploadSoftwareStatus(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.SoftwareStatus@,System.String@,System.String@)">
+            <summary>
+            上传软件状态命令解码函数
+            </summary>
+            <param name="sourceBuffer">据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="softwareStatus">引用类型：软件状态</param>
+            <param name="softwareStatusIllustration">引用类型：软件状态说明</param>
+            <param name="softwareVersion">引用类型：软件版本号</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.PackingUploadProcessData(MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.DeviceAddress,MSGeneralMethods.MethodsClass.CommandCode,MSGeneralMethods.MethodsClass.ProcessDataCommand,System.Byte[],System.Int32,System.Int32,System.Byte[]@,System.Int32@)">
+            <summary>
+            上传作业数据命令编码函数
+            </summary>
+            <param name="transmittingDeviceAddress">命令发送方地址</param>
+            <param name="receivingDeviceAddress">命令接收方地址</param>
+            <param name="commandCode">命令码</param>
+            <param name="processDataCommand">作业类别码</param>
+            <param name="processData">作业数据缓冲区</param>
+            <param name="processDataOffset">有效作业数据在作业数据缓冲区中的偏移量</param>
+            <param name="processDataLength">有效作业数据长度</param>
+            <param name="targetBuffer">引用类型数组：目标缓冲区</param>
+            <param name="targetBufferLength">引用类型变量：目标缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.UnpackingUploadProcessData(System.Byte[],System.Int32,System.Int32,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.DeviceAddress@,MSGeneralMethods.MethodsClass.CommandCode@,MSGeneralMethods.MethodsClass.ProcessDataCommand@,System.Byte[]@,System.Int32@)">
+            <summary>
+            上传作业数据命令解码函数
+            </summary>
+            <param name="sourceBuffer">数据缓冲区</param>
+            <param name="offset">有效数据在数据缓冲区中的偏移量</param>
+            <param name="sourceBufferLength">有效数据缓冲区长度</param>
+            <param name="transmittingDeviceAddress">引用类型：命令发送方地址</param>
+            <param name="receivingDeviceAddress">引用类型：命令接收方地址</param>
+            <param name="commandCode">引用类型：命令码</param>
+            <param name="processDataCommand">引用类型：作业类别码</param>
+            <param name="processData">作业数据缓冲区数据</param>
+            <param name="processDataLength">作业数据缓冲区长度</param>
+            <returns>ErrorCode错误类型</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetTrainingPlanContent(MSGeneralMethods.MethodsClass.TrainingPlan,MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag)">
+            <summary>
+            根据训练科目和训练进程获取“完成训练科目”报文所需报送的训练内容
+            </summary>
+            <param name="plan">训练科目</param>
+            <param name="accomplishedFlag">训练进程</param>
+            <returns>训练内容</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetTrainingPlanContent(MSGeneralMethods.MethodsClass.TrainingPlan,MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag,MSGeneralMethods.MethodsClass.ChongXinDuiZhun)">
+            <summary>
+            根据训练科目、训练进程及重新对准方式获取“完成训练科目”报文所需报送的训练内容
+            </summary>
+            <param name="plan">训练科目</param>
+            <param name="accomplishedFlag">训练进程</param>
+            <param name="chongXinDuiZhun">重新对准方式</param>
+            <returns>训练内容</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetTrainingPlanContent(MSGeneralMethods.MethodsClass.TrainingPlan,MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag,MSGeneralMethods.MethodsClass.JiaoZheng)">
+            <summary>
+            根据训练科目、训练进程及校正方式获取“完成训练科目”报文所需报送的训练内容
+            </summary>
+            <param name="plan">训练科目</param>
+            <param name="accomplishedFlag">训练进程</param>
+            <param name="jiaoZheng">校正方式</param>
+            <returns>训练内容</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetTrainingPlanContent(MSGeneralMethods.MethodsClass.TrainingPlan,MSGeneralMethods.MethodsClass.TrainingPlanAccomplishedFlag,MSGeneralMethods.MethodsClass.MoShi)">
+            <summary>
+            根据训练科目、训练进程及模式作业方式获取“完成训练科目”报文所需报送的训练内容
+            </summary>
+            <param name="plan">训练科目</param>
+            <param name="accomplishedFlag">训练进程</param>
+            <param name="moShi">模式作业方式</param>
+            <returns>训练内容</returns>
+        </member>
+        <member name="M:MSGeneralMethods.MethodsClass.GetDeviceAddressesInTrainingPlan(MSGeneralMethods.MethodsClass.TrainingPlan)">
+            <summary>
+            根据给定的训练科目，获取该训练科目下涉及到的所有报文接收设备地址
+            </summary>
+            <param name="plan">训练科目</param>
+            <returns>List类型，初始化为DeviceAddress的集合变量</returns>
+        </member>
+        <member name="T:MSGeneralMethods.RegistryOperations">
+            <summary>
+            读取本机注册表操作类
+            </summary>
+        </member>
+        <member name="M:MSGeneralMethods.RegistryOperations.ReadRegistry(System.String,System.String)">
+            <summary>
+            读取本机HKEY_LOCAL_MACHINE\SOFTWARE下的以appName命名的子键中关键字为keyName的值
+            </summary>
+            <param name="appName">HKEY_LOCAL_MACHINE\SOFTWARE下的以appName命名的子键，一般以程序名命名</param>
+            <param name="keyName">关键字</param>
+            <returns>该项中此关键字对应的值。若此关键字不存在，则返回""</returns>
+        </member>
+        <member name="M:MSGeneralMethods.RegistryOperations.WriteRegistry(System.String,System.String,System.String)">
+            <summary>
+            向本机HKEY_LOCAL_MACHINE\SOFTWARE下的以appName命名的子键中关键字为keyName的项写入keyValue值
+            </summary>
+            <param name="appName">HKEY_LOCAL_MACHINE\SOFTWARE下的以appName命名的子键，一般以程序名命名</param>
+            <param name="keyName">关键字</param>
+            <param name="keyValue">待写入的值</param>
+            <returns>=true：成功写入;=false：写入失败</returns>
+        </member>
+        <member name="T:MSGeneralMethods.SerialPortClass">
+            <summary>
+            串口通信类
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.SerialPortClass.SerialBaudrate">
+            <summary>
+            串口波特率
+            </summary>
+        </member>
+        <member name="T:MSGeneralMethods.SerialPortClass.SerialPortName">
+            <summary>
+            串口号
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.ReceivedData">
+            <summary>
+            以字节的方式接收通过串口传输的数据
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.ReceivedDataInChar">
+            <summary>
+            若BytyMode属性为false时，以字符的方式接收通过串口传输的数据
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.ReceiveReady">
+            <summary>
+            是否成功完成串口数据接收 (用户需在处理完串口数据后置此属性为false)
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.SerialPortOpenCompeleted">
+            <summary>
+            是否成功开启串口
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.SerialPortDirectReceiving">
+            <summary>
+            是否直接通过调用SerialPort.Read函数直接读取串口数据
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.ByteMode">
+            <summary>
+            将收到的数据以字节（byte，ByteMode=true）/字符（char，ByteMode=false）形式存储
+            </summary>
+        </member>
+        <member name="P:MSGeneralMethods.SerialPortClass.CurrentSerialPort">
+            <summary>
+            通过SerialPortClass类构造函数创建的当前串口类（System.IO.Ports)
+            </summary>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.OpenSerialPort(MSGeneralMethods.SerialPortClass.SerialPortName,MSGeneralMethods.SerialPortClass.SerialBaudrate,System.Boolean)">
+            <summary>
+            打开串口
+            </summary>
+            <param name="portName">串口号</param>
+            <param name="baudrate">波特率</param>
+            <param name="byteMode">串口读取模式为字节模式或字符模式。=true，则将串口读取的数据保存至byte[]数组中；=false，则将串口读取的数据保存至char[]数组中</param>
+            <returns></returns>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.OpenSerialPort(MSGeneralMethods.SerialPortClass.SerialPortName,MSGeneralMethods.SerialPortClass.SerialBaudrate,System.Boolean,System.Boolean)">
+            <summary>
+            打开串口
+            </summary>
+            <param name="portName">串口号</param>
+            <param name="baudrate">波特率</param>
+            <param name="byteMode">串口读取模式为字节模式或字符模式。=true，则将串口读取的数据保存至byte[]数组中；=false，则将串口读取的数据保存至char[]数组中</param>
+            <param name="directRead">串口读取时是否需要判断标识符。=true，则将直接从串口中读取数据（无论是否有数据）；=false，则判断串口BytesToRead标识符后根据判断结果读取</param>
+            <returns>返回值为“”（即返回值为空字符串）则开启串口成功；若串口开启失败，则返回失败信息</returns>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.CurrentSerialPortDataReceived(System.Object,System.IO.Ports.SerialDataReceivedEventArgs)">
+            <summary>
+            当前串口接收响应函数。当串口数据标识符BytesToRead非零时，读取串口数据并保存至数据缓冲区。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.CurrentSerialPortDataReceivedDirectly(System.Object,System.IO.Ports.SerialDataReceivedEventArgs)">
+            <summary>
+            当前串口接收响应函数。每次进行读取串口操作时，不对串口标识符BytesToRead进行判断即直接读取串口缓冲区数据（无论是否有数据）。
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.CurrentSerialPortDataReceivedDirectly(System.Int32)">
+            <summary>
+            直接读取串口缓冲区数据
+            </summary>
+            <param name="length">一次读取串口缓冲区长度</param>
+            <returns>实际读取到的串口缓冲区数据长度</returns>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.SerialSend(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            通过串口发送字节数组数据
+            </summary>
+            <param name="dataInByte">待通过串口发送的字节数组</param>
+            <param name="offset">待发送数据在缓冲区中的偏移量</param>
+            <param name="length">待发送的数组长度</param>
+            <returns>true：成功发送；false：发送失败</returns>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.SerialSend(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            通过串口发送字符数组数据
+            </summary>
+            <param name="dataInChar">待通过串口发送的字符数组</param>
+            <param name="offset">待发送数据在缓冲区中的偏移量</param>
+            <param name="length">待发送的数组长度</param>
+            <returns>true：成功发送；false：发送失败</returns>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.SerialSend(System.String)">
+            <summary>
+            通过串口发送字符串数据
+            </summary>
+            <param name="dataInString">待通过串口发送的字符串数组</param>
+            <returns>true：成功发送；false：发送失败</returns>
+        </member>
+        <member name="M:MSGeneralMethods.SerialPortClass.CloseSerialPort">
+            <summary>
+            关闭此前打开的串口
+            </summary>
+            <returns>true：成功关闭串口；false：关闭串口失败</returns>
+        </member>
+    </members>
+</doc>

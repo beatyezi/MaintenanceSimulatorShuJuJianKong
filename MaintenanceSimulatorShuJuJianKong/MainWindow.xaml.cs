@@ -319,8 +319,7 @@ namespace MaintenanceSimulatorShuJuJianKong
             SetPowerbootStatus(currentKeyStatus.isPowerbootEnabled);
 
             //初始化开机启动界面选项
-            cb_other_powerbootEnabled.IsChecked = currentKeyStatus.isPowerbootEnabled;
-            
+            cb_other_powerbootEnabled.IsChecked = currentKeyStatus.isPowerbootEnabled;            
         }
 
         private System.Timers.Timer timerPerSecond = new System.Timers.Timer(1000);
@@ -502,8 +501,34 @@ namespace MaintenanceSimulatorShuJuJianKong
                 gSaveReceivedPackageBuffer.Add(command);
             }
         }
+                
 
-        
+        private SerialPortClass secondSerialPort = new SerialPortClass();
+        private void InitSecondSerialPort()
+        {
+            if(secondSerialPort.SerialPortOpenCompeleted)
+            {
+                while(true)
+                {
+                    if(secondSerialPort.ReceiveReady)
+                    {
+                        secondSerialPort.ReceiveReady = false;
+                        
+                        //Bytemode in byte
+                        if(secondSerialPort.ByteMode)
+                        {
+                            byte[] temp = secondSerialPort.ReceivedData;
+                        }
+                        else
+                        {
+                            //bytemode in char
+                            char[] temp = secondSerialPort.ReceivedDataInChar;
+                            string test = secondSerialPort.ReceivedDataInString;
+                        }
+                    }
+                }
+            }
+        }      
 
         private SerialPortClass mainSerialPort = new SerialPortClass();//主串口，对外输入输出        
 
@@ -577,7 +602,7 @@ namespace MaintenanceSimulatorShuJuJianKong
                     GlobalDefinitions.DatabaseFile item = new GlobalDefinitions.DatabaseFile();
                     item.name = fi.Name;
                     item.path = fi.FullName;
-                    item.information = String.Format("创建时间：{0}\r\n修改时间：{1}\r\n访问时间：{2}", fi.CreationTime, fi.LastWriteTime, fi.LastAccessTime);
+                    item.information = String.Format("{0}\r\n\r\n创建时间:{1}\r\n修改时间:{2}\r\n访问时间:{3}",fi.FullName, fi.CreationTime, fi.LastWriteTime, fi.LastAccessTime);
                     gDatabaseFiles.Add(item);
                     this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new ShowDatabaseFileNameDelegate(UpdateDatabaseFileName), item);
                 }
@@ -609,11 +634,14 @@ namespace MaintenanceSimulatorShuJuJianKong
         {
             if (isPowerbootEnable)
             {
-                if (String.IsNullOrEmpty(RegistryOperations.ReadRegistry("Microsoft\\Windows\\CurrentVersion\\Run", "MSShuJuJianKong")))
+                /*if (String.IsNullOrEmpty(RegistryOperations.ReadRegistry("Microsoft\\Windows\\CurrentVersion\\Run", "MSShuJuJianKong")))
                 {
                     string exeName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                     RegistryOperations.WriteRegistry("Microsoft\\Windows\\CurrentVersion\\Run", "MSShuJuJianKong", exeName);
-                }
+                }*///若按照如上逻辑来处理，则会出现这样的情况：当用户更改了注册表中的值，但程序判断注册表值非空，则无法将新的值写入注册表
+                
+                RegistryOperations.WriteRegistry("Microsoft\\Windows\\CurrentVersion\\Run", "MSShuJuJianKong", Process.GetCurrentProcess().MainModule.FileName);
+                
             }
             else
             {
@@ -2634,6 +2662,7 @@ namespace MaintenanceSimulatorShuJuJianKong
         private void BtnCopyright_Click(object sender, RoutedEventArgs e)
         {
             CopyRight copyRightDlg = new CopyRight("版本及版权信息", GlobalDefinitions.AppInformation + GlobalDefinitions.MSPLCopyRight);
+            copyRightDlg.Topmost = true;
             copyRightDlg.ShowDialog();
             copyRightDlg.Activate();
         }
