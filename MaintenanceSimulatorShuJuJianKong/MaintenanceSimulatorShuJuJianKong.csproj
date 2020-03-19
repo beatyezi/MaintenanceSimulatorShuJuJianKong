@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>MainIcon.ico</ApplicationIcon>
+    <ApplicationIcon>report.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -277,9 +277,6 @@
     <Resource Include="Icons\minimiz_background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\MainIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\ico_QiTa.png" />
     <Resource Include="Icons\ico_ShuJuChaXun.png" />
     <Resource Include="Icons\ico_ShuJuFenXi.png" />
@@ -295,7 +292,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MainIcon.ico" />
+    <Resource Include="Icons\report.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="report.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

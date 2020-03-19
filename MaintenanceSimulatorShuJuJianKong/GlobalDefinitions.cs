@@ -244,8 +244,8 @@ namespace MaintenanceSimulatorShuJuJianKong
 
         public static string AppInformation =
             "BCL003炮兵测地车维修模拟训练器数据监控软件\r\n" +
-            "V1.00.00 Build20180727\r\n" +
-            "江西中船航海仪器有限公司科技研发部软件组 Copyright © 2018-现在，江西中船航海仪器有限公司\r\n" +
+            "V1.00.01 Build20200317\r\n" +
+            "Copyright © 2018-现在，江西中船航海仪器有限公司\r\n" +
             "程序及UI设计：毕挺\r\n\r\n";
         public static string MSPLCopyRight =
         "[b]Microsoft Public License (Ms-PL)[/b][/color]\r\n" +
